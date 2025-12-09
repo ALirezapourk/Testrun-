@@ -1,0 +1,181 @@
+﻿@{
+    ViewData["Title"] = "Complete Google Maps API Demo";
+}
+
+<!-- Link to CSS file -->
+<link rel="stylesheet" href="~/css/google-maps.css" />
+
+<div class="container" style="margin-top:40px;">
+    <h1>🗺️ Complete Google Maps API Integration</h1>
+    <p>Search for places and get interactive options!</p>
+
+    <!-- Share Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeShareModal()"></div>
+    <div class="share-modal" id="shareModal">
+        <h3 style="margin-top: 0;">📌 Share This Place</h3>
+        <p id="shareModalTitle" style="font-weight: bold; color: #1a73e8;"></p>
+        <p style="font-size: 14px; color: #666;">Copy and share this link with your friends!</p>
+        <input type="text" id="shareLink" class="share-link" readonly onclick="this.select()">
+        <div style="margin-top: 15px;">
+            <button class="action-btn" onclick="copyShareLink()" style="width: 48%; margin-right: 2%;">📋 Copy Link</button>
+            <button class="action-btn secondary" onclick="closeShareModal()" style="width: 48%;">✓ Done</button>
+        </div>
+        <p id="copyStatus" style="color: #34a853; font-size: 13px; margin-top: 10px; display: none;">✓ Link copied to clipboard!</p>
+    </div>
+
+    <!-- Bookmark Modal -->
+    <div class="modal-overlay" id="bookmarkModalOverlay" onclick="closeBookmarkModal()"></div>
+    <div class="share-modal" id="bookmarkModal" style="max-width: 500px;">
+        <h3 style="margin-top: 0;">📚 Create Bookmark</h3>
+        <p style="font-size: 14px; color: #666;">Save this location with a custom name and notes</p>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Bookmark Name:</label>
+            <input type="text" id="bookmarkName" placeholder="e.g., My Favorite Coffee Shop" 
+                   style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Notes:</label>
+            <textarea id="bookmarkNotes" placeholder="Add any notes about this location..." 
+                      rows="4" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; resize: vertical;"></textarea>
+        </div>
+        
+        <div style="margin-bottom: 15px; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Location:</label>
+            <div id="bookmarkLocation" style="font-size: 14px; color: #666;"></div>
+        </div>
+        
+        <div style="margin-top: 15px;">
+            <button class="action-btn" onclick="saveBookmark()" style="width: 48%; margin-right: 2%;">💾 Save Bookmark</button>
+            <button class="action-btn secondary" onclick="closeBookmarkModal()" style="width: 48%;">✕ Cancel</button>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-buttons">
+        <button class="tab-btn active" onclick="showTab('directions')">Directions & Routes</button>
+        <button class="tab-btn" onclick="showTab('places')">Places Search</button>
+        <button class="tab-btn" onclick="showTab('bookmarks')">📚 My Bookmarks</button>
+        <button class="tab-btn" onclick="showTab('geocoding')">Geocoding</button>
+        <button class="tab-btn" onclick="showTab('matrix')">Distance Matrix</button>
+        <button class="tab-btn" onclick="showTab('location')">Location Services</button>
+    </div>
+
+    <!-- Directions & Routes Tab -->
+    <div id="directions" class="api-section active">
+        <h3>🚗 Directions API & Routes API</h3>
+        <input id="origin-input" type="text" placeholder="Origin" style="width: 250px; padding: 8px; margin-right: 5px;" />
+        <input id="destination-input" type="text" placeholder="Destination" style="width: 250px; padding: 8px; margin-right: 5px;" />
+        <select id="travel-mode" style="padding: 8px; margin-right: 5px;">
+            <option value="DRIVING">🚗 Driving</option>
+            <option value="WALKING">🚶 Walking</option>
+            <option value="BICYCLING">🚴 Bicycling</option>
+            <option value="TRANSIT">🚌 Transit</option>
+        </select>
+        <button onclick="calculateRoute()" style="padding: 8px 16px;">Get Route</button>
+        <button onclick="calculateAlternativeRoutes()" style="padding: 8px 16px;">Show Alternatives</button>
+        <div id="route-info" class="result-box"></div>
+    </div>
+
+    <!-- Places Tab -->
+    <div id="places" class="api-section">
+        <h3>📍 Places Search with Interactive Options</h3>
+        
+        <h4>Search for Places</h4>
+        <input id="places-search" type="text" placeholder="e.g., restaurants, museums, hotels" style="width: 300px; padding: 8px; margin-right: 5px;" />
+        <input id="places-radius" type="number" placeholder="Radius (m)" value="2000" style="width: 100px; padding: 8px; margin-right: 5px;" />
+        <button onclick="searchNearbyPlaces()" style="padding: 8px 16px;">Search Nearby</button>
+        
+        <h4>Or Try Text Search</h4>
+        <input id="text-search" type="text" placeholder="e.g., coffee in Stockholm, Eiffel Tower" style="width: 400px; padding: 8px; margin-right: 5px;" />
+        <button onclick="textSearch()" style="padding: 8px 16px;">Search</button>
+        
+        <div id="places-results" class="result-box"></div>
+    </div>
+
+    <!-- Bookmarks Tab -->
+    <div id="bookmarks" class="api-section">
+        <h3>📚 My Saved Bookmarks</h3>
+        <p>Save your favorite locations with notes and access them anytime!</p>
+        
+        <div style="margin-bottom: 15px;">
+            <button onclick="openBookmarkModal()" class="action-btn" style="padding: 10px 20px;">
+                ➕ Create New Bookmark
+            </button>
+            <button onclick="clearAllBookmarks()" class="action-btn info" style="padding: 10px 20px;">
+                🗑️ Clear All Bookmarks
+            </button>
+        </div>
+        
+        <div id="bookmarks-list" class="result-box">
+            <em style="color: #666;">No bookmarks yet. Click anywhere on the map or use the "Create New Bookmark" button!</em>
+        </div>
+    </div>
+
+    <!-- Geocoding Tab -->
+    <div id="geocoding" class="api-section">
+        <h3>🌐 Geocoding API</h3>
+        
+        <h4>Forward Geocoding (Address → Coordinates)</h4>
+        <input id="geocode-address" type="text" placeholder="Enter address" style="width: 400px; padding: 8px; margin-right: 5px;" />
+        <button onclick="forwardGeocode()" style="padding: 8px 16px;">Geocode</button>
+        
+        <h4>Reverse Geocoding (Coordinates → Address)</h4>
+        <input id="reverse-lat" type="text" placeholder="Latitude" style="width: 150px; padding: 8px; margin-right: 5px;" />
+        <input id="reverse-lng" type="text" placeholder="Longitude" style="width: 150px; padding: 8px; margin-right: 5px;" />
+        <button onclick="reverseGeocode()" style="padding: 8px 16px;">Reverse Geocode</button>
+        <p style="color: #666; font-size: 14px;">💡 Tip: Click anywhere on the map for reverse geocoding</p>
+        
+        <div id="geocode-result" class="result-box"></div>
+    </div>
+
+    <!-- Distance Matrix Tab -->
+    <div id="matrix" class="api-section">
+        <h3>📊 Distance Matrix API</h3>
+        <p>Calculate distances/durations between multiple origins and destinations</p>
+        
+        <h4>Multiple Origins</h4>
+        <input id="matrix-origin-1" type="text" placeholder="Origin 1" style="width: 200px; padding: 8px; margin-right: 5px;" />
+        <input id="matrix-origin-2" type="text" placeholder="Origin 2" style="width: 200px; padding: 8px; margin-right: 5px;" />
+        
+        <h4>Multiple Destinations</h4>
+        <input id="matrix-dest-1" type="text" placeholder="Destination 1" style="width: 200px; padding: 8px; margin-right: 5px;" />
+        <input id="matrix-dest-2" type="text" placeholder="Destination 2" style="width: 200px; padding: 8px; margin-right: 5px;" />
+        
+        <button onclick="calculateDistanceMatrix()" style="padding: 8px 16px; margin-top: 10px;">Calculate Matrix</button>
+        
+        <div id="matrix-result" class="result-box"></div>
+    </div>
+
+    <!-- Location Services Tab -->
+    <div id="location" class="api-section">
+        <h3>⏰ Time Zone API & 🌤️ Weather API</h3>
+        
+        <h4>Get Location Information</h4>
+        <input id="location-lat" type="text" placeholder="Latitude" value="59.3293" style="width: 150px; padding: 8px; margin-right: 5px;" />
+        <input id="location-lng" type="text" placeholder="Longitude" value="18.0686" style="width: 150px; padding: 8px; margin-right: 5px;" />
+        <button onclick="getLocationInfo()" style="padding: 8px 16px;">Get Info</button>
+        <button onclick="getCurrentLocation()" style="padding: 8px 16px;">Use My Location</button>
+        
+        <div id="location-info" class="result-box"></div>
+    </div>
+
+    <!-- Map -->
+    <div id="map" style="height: 500px; width: 100%; border: 2px solid #333; border-radius: 5px; margin-top: 20px;"></div>
+</div>
+
+@section Scripts {
+    <script>
+        // Pass API key from server to JavaScript
+        window.GOOGLE_MAPS_API_KEY = '@Environment.GetEnvironmentVariable("GOOGLE_MAPS_API_KEY")';
+    </script>
+    
+    <!-- Google Maps JavaScript file -->
+    <script src="~/js/google-maps.js"></script>
+    
+    <!-- Google Maps API with callback -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=@Environment.GetEnvironmentVariable("GOOGLE_MAPS_API_KEY")&libraries=places&callback=initMap">
+    </script>
+}

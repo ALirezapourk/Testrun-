@@ -1,0 +1,186 @@
+/* ======================================
+   GOOGLE MAPS STYLES
+   ====================================== */
+
+.api-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.api-section h3 {
+    margin-top: 0;
+    color: #1a73e8;
+}
+
+.result-box {
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 3px;
+    border: 1px solid #e0e0e0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.tab-buttons {
+    margin-bottom: 15px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    margin-right: 5px;
+    border: none;
+    background: #e0e0e0;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tab-btn.active {
+    background: #1a73e8;
+    color: white;
+}
+
+.api-section {
+    display: none;
+}
+
+.api-section.active {
+    display: block;
+}
+
+.place-card {
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background: #fafafa;
+}
+
+.place-card:hover {
+    background: #f0f0f0;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    margin: 4px 4px 4px 0;
+    border: none;
+    background: #1a73e8;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.action-btn:hover {
+    background: #1557b0;
+}
+
+.action-btn.secondary {
+    background: #34a853;
+}
+
+.action-btn.secondary:hover {
+    background: #2d8e47;
+}
+
+.action-btn.info {
+    background: #ea4335;
+}
+
+.action-btn.info:hover {
+    background: #c5362b;
+}
+
+.action-btn.bookmark {
+    background: #fbbc04;
+    color: #333;
+}
+
+.action-btn.bookmark:hover {
+    background: #f9ab00;
+}
+
+/* Share Modal Styles */
+.share-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+}
+
+.share-modal.active {
+    display: block;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+.share-link {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { 
+        transform: translateX(400px); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+}
+
+@keyframes slideOut {
+    from { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateX(400px); 
+        opacity: 0; 
+    }
+}
+/* Bookmark Card Styles */
+.bookmark-card {
+    padding: 15px;
+    margin: 12px 0;
+    border: 2px solid #1a73e8;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.bookmark-card:hover {
+    background: #f8f9fa;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+    transform: translateY(-2px);
+}

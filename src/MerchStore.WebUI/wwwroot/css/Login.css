@@ -1,0 +1,497 @@
+/*************/
+/* Variables */
+/*************/
+
+
+
+
+.btn-container {
+  --pupil-color: rgb(156, 207, 255);
+  --pupil-move: 20%;
+  --sensor-height: 130dvmax;
+  --sensor-width: calc(var(--sensor-height) * 82.84 / 100);
+  position: fixed;   /* attaches it to the viewport, not parent */
+  top: 2rem;         /* distance from top */
+  left: 50%;         /* center horizontally */
+  transform: translateX(-50%);
+  width: max-content;;
+}
+
+
+.btn-button {
+  --back-color: #fff;
+}
+.btn-lid {
+  --back-color: transparent;
+}
+
+/**********/
+/* Styles */
+/**********/
+
+/* Container */
+.btn-container {
+  position: relative;
+}
+
+/* Button */
+.btn-button {
+  background: #fff;
+  border: 6px solid #000;
+  border-radius: 20rem;
+  cursor: pointer;
+  padding: 4rem;
+  position: relative;
+  z-index: 100;
+}
+.btn-button:hover,
+.btn-button:hover .btn-lid {
+  animation: squint 100ms forwards;
+}
+.btn-button:active .btn-pupil {
+  animation: agitate 150ms infinite 600ms;
+  border-width: 2rem;
+  padding: 1rem;
+}
+
+.btn-lid {
+  border-radius: 20rem;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 101;
+}
+
+.btn-pupil {
+  background: #000;
+  border: 1.3rem solid var(--pupil-color);
+  border-radius: 10rem;
+  padding: 1.2rem;
+  transition: all 200ms ease-out;
+}
+
+/* Sensors */
+.btn-sensor {
+  clip-path: polygon(0 0, 100% 0, 50% 100%, 0 0);
+  height: var(--sensor-height);
+  left: calc(50% - var(--sensor-width) / 2);
+  overflow: hidden;
+  position: absolute;
+  top: calc(50% - var(--sensor-height) / 2);
+  transform: rotate(calc(var(--a) * 1deg))
+    translateY(calc(var(--sensor-height) * -50 / 100));
+  width: var(--sensor-width);
+  z-index: 99;
+}
+
+/************/
+/* Tracking */
+/************/
+
+.sensor-n:hover ~ .btn-button .btn-pupil {
+  transform: translateX(0) translateY(calc(-3 * var(--pupil-move)));
+}
+.sensor-ne:hover ~ .btn-button .btn-pupil {
+  transform: translateX(calc(2 * var(--pupil-move)))
+    translateY(calc(-2 * var(--pupil-move)));
+}
+.sensor-e:hover ~ .btn-button .btn-pupil {
+  transform: translateX(calc(3 * var(--pupil-move))) translateY(0);
+}
+.sensor-se:hover ~ .btn-button .btn-pupil {
+  transform: translateX(calc(2 * var(--pupil-move)))
+    translateY(calc(2 * var(--pupil-move)));
+}
+.sensor-s:hover ~ .btn-button .btn-pupil {
+  transform: translateX(0) translateY(calc(3 * var(--pupil-move)));
+}
+.sensor-sw:hover ~ .btn-button .btn-pupil {
+  transform: translateX(calc(-2 * var(--pupil-move)))
+    translateY(calc(2 * var(--pupil-move)));
+}
+.sensor-w:hover ~ .btn-button .btn-pupil {
+  transform: translateX(calc(-3 * var(--pupil-move))) translateY(0);
+}
+.sensor-nw:hover ~ .btn-button .btn-pupil {
+  transform: translateX(calc(-2 * var(--pupil-move)))
+    translateY(calc(-2 * var(--pupil-move)));
+}
+
+/**************/
+/* Animations */
+/**************/
+
+@keyframes agitate {
+  0% {
+    transform: scale(1.2) translate(0%, -10%);
+  }
+
+  25% {
+    transform: scale(1.2) translate(-10%, 10%);
+  }
+
+  50% {
+    transform: scale(1.2) translate(10%, -5%);
+  }
+
+  75% {
+    transform: scale(1.2) translate(-10%, -5%);
+  }
+
+  100% {
+    transform: scale(1.2) translate(10%, 10%);
+  }
+}
+
+@keyframes squint {
+  0% {
+    background: var(--back-color);
+  }
+
+  25% {
+    background: linear-gradient(
+      0deg,
+      #000 0% 9%,
+      var(--back-color) 10% 90%,
+      #000 91% 100%
+    );
+  }
+
+  50% {
+    background: linear-gradient(
+      0deg,
+      #000 0% 18%,
+      var(--back-color) 19% 81%,
+      #000 82% 100%
+    );
+  }
+
+  75% {
+    background: linear-gradient(
+      0deg,
+      #000 0% 27%,
+      var(--back-color) 28% 72%,
+      #000 73% 100%
+    );
+  }
+
+  100% {
+    background: linear-gradient(
+      0deg,
+      #000 0% 35%,
+      var(--back-color) 36% 64%,
+      #000 65% 100%
+    );
+  }
+}
+
+
+/*Buttons 
+gg
+gg
+gg
+gg
+gg
+gg
+gg
+*/
+
+
+
+
+.discord-light-button button.bt {
+  position: flex;
+  height: 400px;
+  display: flex;
+  align-items: flex-end;
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.discord-light-button button.bt .button-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  width: 150px;
+  background-color: #0a0a0a;
+  border-radius: 5px;
+  color: #0f0f0f;
+  font-weight: 700;
+  transition: 300ms;
+  outline: #0f0f0f 2px solid;
+  outline-offset: 20;
+}
+
+.discord-light-button button.bt .button-holder svg {
+  height: 75px;
+  fill: #0f0f0f;
+  transition: 300ms;
+}
+
+.discord-light-button button.bt .light-holder {
+  position: absolute;
+  height: 300px;
+  width: 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.discord-light-button button.bt .light-holder .dot {
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background-color: #0a0a0a;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.discord-light-button button.bt .light-holder .light {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 200px;
+  clip-path: polygon(50% 0%, 25% 100%, 75% 100%);
+  background: transparent;
+}
+
+.discord-light-button button.bt:hover .button-holder svg {
+  fill: rgba(88, 101, 242, 1);
+}
+
+.discord-light-button button.bt:hover .button-holder {
+  color: rgba(88, 101, 242, 1);
+  outline: rgba(88, 101, 242, 1) 2px solid;
+  outline-offset: 2px;
+}
+
+.discord-light-button button.bt:hover .light-holder .light {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(88, 101, 242, 1) 0%,
+    rgba(255, 255, 255, 0) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+
+
+/* End of Buttons */
+
+.google-light-button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+
+
+
+.google-light-button button.google-bt {
+  position: flex;
+  height: 5px;
+  display: flex;
+  align-items: flex-end;
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.google-light-button button.google-bt .google-button-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  width: 150px;
+  background-color: #0a0a0a;
+  border-radius: 5px;
+  color: #0f0f0f;
+  font-weight: 700;
+  transition: 300ms;
+  outline: #0f0f0f 2px solid;
+  outline-offset: 20;
+}
+
+.google-light-button button.google-bt .google-button-holder svg {
+  height: 75px;
+  fill: #0f0f0f;
+  transition: 300ms;
+}
+
+.google-light-button button.google-bt .google-light-holder {
+  position: absolute;
+  height: 300px;
+  width: 145px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.google-light-button button.google-bt .google-light-holder .google-dot {
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background-color: #0a0a0a;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.google-light-button button.google-bt .google-light-holder .google-light {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 155px;
+  z-index: 1;
+  clip-path: polygon(50% 0%, 25% 100%, 75% 100%);
+  background: transparent;
+}
+
+.google-light-button button.google-bt:hover .google-button-holder svg {
+  fill: rgba(255, 255, 255, 0.9);  /* Change fill color on hover */
+}
+
+.google-light-button button.google-bt:hover .google-button-holder {
+  color: rgba(255, 255, 255, 1);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  outline: none;
+  outline-offset: 4px;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+  position: relative;
+}
+
+.google-light-button button.google-bt:hover .google-button-holder::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 8px;
+  background: radial-gradient(circle at 0 0, hsl(27deg 93% 60%), transparent),
+    radial-gradient(circle at 100% 0, #00a6ff, transparent),
+    radial-gradient(circle at 0 100%, #ff0056, transparent),
+    radial-gradient(circle at 100% 100%, #02b105, transparent);
+  z-index: -1;
+  filter: blur(6px);
+}
+
+.google-light-button button.google-bt:hover .google-light-holder .google-light {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(245, 245, 245, 0.7) 40%,
+    rgba(230, 230, 230, 0.4) 70%,
+    rgba(210, 210, 210, 0.1) 90%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(12px);
+  opacity: 0.85;
+  transition:
+    background 0.4s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+
+
+/* End of Google Button */
+
+.email-light-button {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+/* From Uiverse.io by SalladShooter */ 
+/* From Uiverse.io by SalladShooter */ 
+.email-light-button button.bt {
+  position: flex;
+  height: 5px;              /* was 200px */
+  display: flex;
+  align-items: flex-end;
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.email-light-button button.bt .button-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 150px;              /* was 100px */
+  width: 150px;               /* was 100px */
+  background-color: #0a0a0a;
+  border-radius: 5px;
+  color: #0f0f0f;
+  font-weight: 700;
+  transition: 300ms;
+  outline: #0f0f0f 2px solid;
+  outline-offset: 20;         /* unchanged */
+}
+
+.email-light-button button.bt .button-holder svg {
+  height: 75px;               /* was 50px */
+  fill: #0f0f0f;
+  transition: 300ms;
+}
+
+.email-light-button button.bt .light-holder {
+  position: absolute;
+  height: 300px;              /* was 200px */
+  width: 145px;               /* was 100px */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-light-button button.bt .light-holder .dot {
+  position: absolute;
+  top: 0;
+  width: 12px;                /* was 10px */
+  height: 12px;               /* was 10px */
+  background-color: #0a0a0a;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.email-light-button button.bt .light-holder .light {
+  position: absolute;
+  top: 0;
+  width: 200px;               /* same */
+  height: 200px;              /* same */
+  clip-path: polygon(50% 0%, 25% 100%, 75% 100%);
+  background: transparent;
+}
+
+.email-light-button button.bt:hover .button-holder svg {
+  fill: rgba(101, 101, 121, 1);
+}
+
+.email-light-button button.bt:hover .button-holder {
+  color: rgba(101, 101, 121, 1);
+  outline: rgba(101, 101, 121, 1) 2px solid;
+  outline-offset: 2px;
+}
+
+.email-light-button button.bt:hover .light-holder .light {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(101, 101, 121, 1) 0%,
+    rgba(255, 255, 255, 0) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
